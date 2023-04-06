@@ -9,7 +9,7 @@ const reactionSchema = new Schema(
         }},
         reactionBody:{type:String, required:true, max:280
         },
-        username:{type:String, required:true
+        username:{type: Schema.Types.ObjectId, ref: 'User'
         },
         createdAt: {
             type: Date,
@@ -19,5 +19,8 @@ const reactionSchema = new Schema(
     }
 );
 
+reactionSchema.virtual('formatCreatedAt').get(function() {
+    return new Date(this.createdAt).toLocaleDateString
+});
 
 module.exports = reactionSchema;

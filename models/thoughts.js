@@ -9,9 +9,9 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            //format timestamp
+            //format timestamp with getters
           },
-          username:{type:String, required:true
+          username:{type: Schema.Types.ObjectId, ref: 'User'
           },
           reactions: [reactionSchema]
     },
@@ -24,6 +24,9 @@ const thoughtSchema = new Schema(
 
 thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
+});
+thoughtSchema.virtual('formatCreatedAt').get(function() {
+    return new Date(this.createdAt).toLocaleDateString
 });
 //double check this is correct
 
