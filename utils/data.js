@@ -69,7 +69,7 @@ const getRandomThought = (int) => {
     let results = [];
     for (let i = 0; i < int; i++) {
         results.push({
-            thoughtContent: getRandomArrItem(thoughtBody),
+            thoughtText: getRandomArrItem(thoughtBody),
             reactions: [...getRandomReaction(2)],
         });
     }
