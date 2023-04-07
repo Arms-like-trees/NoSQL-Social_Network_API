@@ -11,7 +11,7 @@ const thoughtSchema = new Schema(
             default: Date.now,
             //format timestamp with getters
           },
-          username:{type: Schema.Types.ObjectId, ref: 'User'
+          username:{type: String, required:true
           },
           reactions: [reactionSchema]
     },

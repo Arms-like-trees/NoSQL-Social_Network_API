@@ -9,7 +9,7 @@ const reactionSchema = new Schema(
         }},
         reactionBody:{type:String, required:true, max:280
         },
-        username:{type: Schema.Types.ObjectId, ref: 'User'
+        username:{type: String, required:true
         },
         createdAt: {
             type: Date,

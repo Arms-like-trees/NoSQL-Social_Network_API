@@ -1,4 +1,4 @@
-const { json } = require('body-parser');
+
 const { User, Thought } = require('../models');
 
 module.exports = {
@@ -49,8 +49,40 @@ module.exports = {
             //how to also delet via associated thoguths? is what i have below correct?
             : Thought.deleteMany({ _id: { $in: user.thoughts}})
         )
-        .then(() => res.json({ message: 'USer and associated thoughts deleted'}))
+        .then(() => res.json({ message: 'User and associated thoughts deleted'}))
         .catch((err) => res.status(500).json(err));
     },
 
+    //addFriend
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $addToSet: { friends: req.body } },
+            { runValidators: true, new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No friends added' })
+                    : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+
+
+    //delete a friend
+    excommunicado(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: { friendId: req.params.friendId } } },
+            { runValidators: true, new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'Excommunicado' })
+                    : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    }
+
 };
+
