@@ -24,6 +24,9 @@ router
 router
 .route('/:thoughtId/reaction')
 .post(addReaction)
+
+router
+.route('/:thoughtId/reaction/:reactionId')
 .delete(removeReaction);
 
 
